@@ -2,6 +2,7 @@ using Moq;
 using ParkingBookingApi.Repositories.BookingRepository;
 using ParkingBookingAPI.Core.Entities;
 using ParkingBookingAPI.Core.Exceptions;
+using ParkingBookingAPI.Data;
 using ParkingBookingAPI.Data.Tables;
 using ParkingBookingAPI.Services.Booking;
 
@@ -80,6 +81,29 @@ namespace ParkingBookingAPI.Tests
             // Assert
             var exception = await Assert.ThrowsAsync<UnprocessableEntityException>(action);
             Assert.Equal("DateTo must be after DateFrom.", exception.Message);
+        }
+
+        [Fact]
+        public async Task CreateBooking_WhenThereAreNoParkingSpaces_ShouldThrow422()
+        {
+            // Arrange
+            var booking = new BookingEntity
+            {
+                DateFrom = DateTime.Parse("2030-01-01 07:00"),
+                DateTo = DateTime.Parse("2030-01-02 07:00")
+            };
+
+            var maxBookings = new List<BookingEntity>(new BookingEntity[Constants.ParkingMaxCapacity]);
+
+            this.bookingRepositoryMock.Setup(x => x.GetAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                                      .ReturnsAsync(maxBookings);
+
+            // Act
+            var action = async () => await this.bookingService.CreateBooking(booking);
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<UnprocessableEntityException>(action);
+            Assert.Equal("There are no available parking spaces between 01/01/2030 07:00:00 and 02/01/2030 07:00:00", exception.Message);
         }
     }
 }
