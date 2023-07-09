@@ -105,5 +105,33 @@ namespace ParkingBookingAPI.Tests
             var exception = await Assert.ThrowsAsync<UnprocessableEntityException>(action);
             Assert.Equal("There are no available parking spaces between 01/01/2030 07:00:00 and 02/01/2030 07:00:00", exception.Message);
         }
+
+        [Theory]
+        [InlineData("2030-01-01 07:00", "2030-01-05 07:00", 2950)] // weekday/weekend mix - winter
+        [InlineData("2030-01-06 07:00", "2030-01-08 07:00", 1850)] // weekend/weekday mix - summer
+        [InlineData("2030-06-01 07:00", "2030-06-02 07:00", 4500)] // weekend - summer
+        public async Task CreateBooking_WhenItsOverWeekdaysAndWeekends_CorrectPriceIsSet(string dateFrom, string dateTo, int totalPrice)
+        {
+            // Arrange
+            var bookings = new List<BookingEntity>();
+            this.bookingRepositoryMock.Setup(x => x.GetAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                                      .ReturnsAsync(bookings);
+
+            int calculatedPrice = 0;
+            this.bookingRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<BookingTable>()))
+                                      .Callback<BookingTable>(r => calculatedPrice = r.Price);
+
+            var booking = new BookingEntity
+            {
+                DateFrom = DateTime.Parse(dateFrom),
+                DateTo = DateTime.Parse(dateTo),
+            };
+
+            // Act
+            var response = await this.bookingService.CreateBooking(booking);
+
+            // Assert
+            Assert.Equal(totalPrice, calculatedPrice);
+        }
     }
 }

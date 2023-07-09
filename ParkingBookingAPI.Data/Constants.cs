@@ -9,5 +9,9 @@
         public const int WeekdayPricing = 1100;
 
         public const int WeekendPricing = 1500;
+
+        public const double WinterMultiplier = 0.5;
+
+        public const double SummerMultiplier = 1.5;
     }
 }
