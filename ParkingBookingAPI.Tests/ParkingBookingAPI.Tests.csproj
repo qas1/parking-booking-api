@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ParkingBookingAPI.Data\ParkingBookingAPI.Data.csproj" />
     <ProjectReference Include="..\ParkingBookingAPI.Services\ParkingBookingAPI.Services.csproj" />
+    <ProjectReference Include="..\ParkingBookingAPI\ParkingBookingAPI.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,8 +2,8 @@
 using ParkingBookingApi.Repositories.BookingRepository;
 using ParkingBookingApi.Services.Booking;
 using ParkingBookingAPI.Core.Entities;
+using ParkingBookingAPI.Core.Exceptions;
 using ParkingBookingAPI.Data.Tables;
-using System.Reflection.Metadata.Ecma335;
 
 namespace ParkingBookingAPI.Services.Booking
 {
@@ -18,11 +18,26 @@ namespace ParkingBookingAPI.Services.Booking
 
         public async Task<Guid> CreateBooking(BookingEntity booking)
         {
+            this.ValidateDateTimes(booking.DateFrom, booking.DateTo);
+
             var table = BookingTable.FromEntity(booking);
 
             var id = await this.bookingRepository.CreateAsync(table);
 
             return id;
+        }
+
+        private void ValidateDateTimes(DateTime dateFrom, DateTime dateTo)
+        {
+            if (dateFrom < DateTime.Now || dateTo < DateTime.Now)
+            {
+                throw new UnprocessableEntityException("At least 1 of the datetimes provided are in the past.");
+            }
+
+            if (dateFrom >= dateTo)
+            {
+                throw new UnprocessableEntityException("DateTo must be after DateFrom.");
+            }
         }
 
         public Task DeleteBooking(Guid bookingId)

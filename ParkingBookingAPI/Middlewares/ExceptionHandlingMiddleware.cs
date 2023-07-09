@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ParkingBookingApi.Exceptions;
+using ParkingBookingAPI.Core.Exceptions;
 using System.Net;
 using System.Text.Json;
 

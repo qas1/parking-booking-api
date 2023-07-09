@@ -1,4 +1,4 @@
-﻿namespace ParkingBookingApi.Exceptions
+﻿namespace ParkingBookingAPI.Core.Exceptions
 {
     public class UnprocessableEntityException : Exception
     {
