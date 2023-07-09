@@ -4,14 +4,14 @@
     "C:\\Dev\\Cavu\\ParkingBookingAPI\\ParkingBookingAPI\\ParkingBookingAPI.csproj": {}
   },
   "projects": {
-    "C:\\Dev\\Cavu\\ParkingBookingAPI\\ParkingBookingAPI\\ParkingBookingAPI.csproj": {
+    "C:\\Dev\\Cavu\\ParkingBookingAPI\\ParkingBookingAPI.Data\\ParkingBookingAPI.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Dev\\Cavu\\ParkingBookingAPI\\ParkingBookingAPI\\ParkingBookingAPI.csproj",
-        "projectName": "ParkingBookingAPI",
-        "projectPath": "C:\\Dev\\Cavu\\ParkingBookingAPI\\ParkingBookingAPI\\ParkingBookingAPI.csproj",
+        "projectUniqueName": "C:\\Dev\\Cavu\\ParkingBookingAPI\\ParkingBookingAPI.Data\\ParkingBookingAPI.Data.csproj",
+        "projectName": "ParkingBookingAPI.Data",
+        "projectPath": "C:\\Dev\\Cavu\\ParkingBookingAPI\\ParkingBookingAPI.Data\\ParkingBookingAPI.Data.csproj",
         "packagesPath": "C:\\Users\\qasim\\.nuget\\packages\\",
-        "outputPath": "C:\\Dev\\Cavu\\ParkingBookingAPI\\ParkingBookingAPI\\obj\\",
+        "outputPath": "C:\\Dev\\Cavu\\ParkingBookingAPI\\ParkingBookingAPI.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\qasim\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,95 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Proxies": {
+              "target": "Package",
+              "version": "[7.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.8, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Dev\\Cavu\\ParkingBookingAPI\\ParkingBookingAPI\\ParkingBookingAPI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Dev\\Cavu\\ParkingBookingAPI\\ParkingBookingAPI\\ParkingBookingAPI.csproj",
+        "projectName": "ParkingBookingAPI",
+        "projectPath": "C:\\Dev\\Cavu\\ParkingBookingAPI\\ParkingBookingAPI\\ParkingBookingAPI.csproj",
+        "packagesPath": "C:\\Users\\qasim\\.nuget\\packages\\",
+        "outputPath": "C:\\Dev\\Cavu\\ParkingBookingAPI\\ParkingBookingAPI\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\qasim\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Dev\\Cavu\\ParkingBookingAPI\\ParkingBookingAPI.Data\\ParkingBookingAPI.Data.csproj": {
+                "projectPath": "C:\\Dev\\Cavu\\ParkingBookingAPI\\ParkingBookingAPI.Data\\ParkingBookingAPI.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.8, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
