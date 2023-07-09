@@ -1,4 +1,5 @@
-﻿using ParkingBookingAPI.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ParkingBookingAPI.Core.Entities;
 using ParkingBookingAPI.Data;
 using ParkingBookingAPI.Data.Tables;
 
@@ -28,9 +29,28 @@ namespace ParkingBookingApi.Repositories.BookingRepository
             throw new NotImplementedException();
         }
 
-        public Task<List<BookingEntity>> GetAsync(DateTime dateFrom, DateTime dateTo)
+        public async Task<List<BookingEntity>> GetAsync(DateTime dateFrom, DateTime dateTo)
         {
-            throw new NotImplementedException();
+            var data = await dataContext.Bookings
+                .Where(x => x.DateFrom >= dateFrom && x.DateFrom < dateTo ||
+                            x.DateFrom <= dateFrom && x.DateTo < dateTo ||
+                            x.DateFrom <= dateFrom && x.DateTo > dateTo ||
+                            x.DateFrom >= dateFrom && x.DateTo > dateTo ||
+                            x.DateFrom >= dateFrom && x.DateTo == dateTo)
+                .ToListAsync();
+
+            var entities = data.Select(x => new BookingEntity()
+            {
+                Id = x.Id,
+                DateFrom = x.DateFrom,
+                DateTo = x.DateTo,
+                CreatedAt = x.CreatedAt,
+                Name = x.Name,
+                Price = x.Price,
+                UpdatedAt = x.UpdatedAt
+            }).ToList();
+
+            return entities;
         }
 
         public Task<BookingEntity?> GetByIdAsync(Guid id)
