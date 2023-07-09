@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using ParkingBookingApi.Repositories.BookingRepository;
+using ParkingBookingApi.Services.Booking;
 using ParkingBookingAPI.Data;
+using ParkingBookingAPI.Services.Booking;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +15,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
-    options.EnableSensitiveDataLogging();
 });
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 var app = builder.Build();
 
