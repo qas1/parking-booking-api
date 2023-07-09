@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Booking\" />
+    <ProjectReference Include="..\ParkingBookingAPI.Core\ParkingBookingAPI.Core.csproj" />
   </ItemGroup>
 
 </Project>
