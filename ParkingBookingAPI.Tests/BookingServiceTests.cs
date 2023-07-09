@@ -31,7 +31,6 @@ namespace ParkingBookingAPI.Tests
                                       .ReturnsAsync(bookings);
 
             var newBookingId = Guid.NewGuid();
-            // var table = BookingsTable.FromEntity(booking);
             this.bookingRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<BookingTable>()))
                                       .ReturnsAsync(newBookingId);
 

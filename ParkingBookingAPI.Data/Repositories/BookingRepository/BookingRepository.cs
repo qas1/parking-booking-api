@@ -1,13 +1,26 @@
 ﻿using ParkingBookingAPI.Core.Entities;
+using ParkingBookingAPI.Data;
 using ParkingBookingAPI.Data.Tables;
 
 namespace ParkingBookingApi.Repositories.BookingRepository
 {
     public class BookingRepository : IBookingRepository
     {
-        public Task<Guid> CreateAsync(BookingTable bookingsTable)
+        private readonly DataContext dataContext;
+
+        public BookingRepository(DataContext dataContext)
         {
-            throw new NotImplementedException();
+            this.dataContext = dataContext;
+        }
+
+        public async Task<Guid> CreateAsync(BookingTable booking)
+        {
+            booking.CreatedAt = DateTime.Now;
+
+            this.dataContext.Bookings.Add(booking);
+            await dataContext.SaveChangesAsync();
+
+            return booking.Id;
         }
 
         public Task DeleteAsync(Guid id)

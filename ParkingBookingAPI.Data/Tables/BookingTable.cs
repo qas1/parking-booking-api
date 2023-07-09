@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using ParkingBookingAPI.Core.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ParkingBookingAPI.Data.Tables
 {
@@ -18,5 +19,19 @@ namespace ParkingBookingAPI.Data.Tables
         public DateTime CreatedAt { get; set; }
 
         public DateTime? UpdatedAt { get; set; }
+
+        public static BookingTable FromEntity(BookingEntity entity)
+        {
+            return new BookingTable
+            {
+                Id = entity.Id,
+                DateFrom = entity.DateFrom,
+                DateTo = entity.DateTo,
+                Name = entity.Name,
+                Price = entity.Price,
+                CreatedAt = entity.CreatedAt,
+                UpdatedAt = entity.UpdatedAt
+            };
+        }
     }
 }

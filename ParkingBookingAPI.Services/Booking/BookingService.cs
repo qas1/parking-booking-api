@@ -2,6 +2,7 @@
 using ParkingBookingApi.Repositories.BookingRepository;
 using ParkingBookingApi.Services.Booking;
 using ParkingBookingAPI.Core.Entities;
+using ParkingBookingAPI.Data.Tables;
 using System.Reflection.Metadata.Ecma335;
 
 namespace ParkingBookingAPI.Services.Booking
@@ -15,11 +16,13 @@ namespace ParkingBookingAPI.Services.Booking
             this.bookingRepository = bookingRepository;
         }
 
-        public Task<Guid> CreateBooking(BookingEntity booking)
+        public async Task<Guid> CreateBooking(BookingEntity booking)
         {
-            var id = Guid.NewGuid();
+            var table = BookingTable.FromEntity(booking);
 
-            return Task.FromResult(id);
+            var id = await this.bookingRepository.CreateAsync(table);
+
+            return id;
         }
 
         public Task DeleteBooking(Guid bookingId)
