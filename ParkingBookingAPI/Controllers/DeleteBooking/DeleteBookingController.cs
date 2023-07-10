@@ -1,16 +1,24 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using ParkingBookingApi.Services.Booking;
 
 namespace ParkingBookingApi.Controllers.Booking.DeleteBooking
 {
     [ApiController]
     public class DeleteBookingController : ControllerBase
     {
-        [Authorize]
-        [HttpDelete("api/bookings/{id}")]
-        public Task Delete([FromRoute] DeleteBookingRequestModel request)
+        private readonly IBookingService bookingService;
+
+        public DeleteBookingController(IBookingService bookingService)
         {
-            throw new NotImplementedException();
+            this.bookingService = bookingService;
+        }
+
+        [HttpDelete("api/bookings/{id}")]
+        public async Task<ActionResult> Delete([FromRoute] DeleteBookingRequestModel request)
+        {
+            await this.bookingService.DeleteBooking(request.Id);
+
+            return NoContent();
         }
     }
 }

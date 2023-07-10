@@ -1,14 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ParkingBookingApi.Services.Booking;
+using ParkingBookingAPI.Controllers.CreateBooking;
 
 namespace ParkingBookingApi.Controllers.Booking.CreateBooking
 {
     [ApiController]
     public class CreateBookingController : ControllerBase
     {
-        [HttpPost("api/bookings")]
-        public Task Post(CreateBookingRequestModel request)
+        private readonly IBookingService bookingService;
+
+        public CreateBookingController(IBookingService bookingService)
         {
-            throw new NotImplementedException();
+            this.bookingService = bookingService;
+        }
+
+        [HttpPost("api/bookings")]
+        public async Task<ActionResult<CreateBookingResponseModel>> Post(CreateBookingRequestModel request)
+        {
+            var id = await this.bookingService.CreateBooking(request.ToDomainEntity());
+
+            var response = new CreateBookingResponseModel(id);
+
+            return Created("", response);
         }
     }
 }

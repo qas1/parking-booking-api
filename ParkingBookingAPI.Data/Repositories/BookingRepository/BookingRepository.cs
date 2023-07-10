@@ -24,9 +24,13 @@ namespace ParkingBookingApi.Repositories.BookingRepository
             return booking.Id;
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var booking = this.dataContext.Bookings.Single(x => x.Id == id);
+
+            this.dataContext.Remove(booking);
+
+            await dataContext.SaveChangesAsync();
         }
 
         public async Task<List<BookingEntity>> GetAsync(DateTime dateFrom, DateTime dateTo)
@@ -53,14 +57,50 @@ namespace ParkingBookingApi.Repositories.BookingRepository
             return entities;
         }
 
-        public Task<BookingEntity?> GetByIdAsync(Guid id)
+        public async Task<BookingEntity?> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var record = await dataContext.Bookings
+                .Where(record => record.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (record == null)
+            {
+                return null;
+            }
+
+            var entity = new BookingEntity
+            {
+                Id = record.Id,
+                Name = record.Name,
+                DateFrom = record.DateFrom,
+                DateTo = record.DateTo,
+                Price = record.Price,
+                CreatedAt = record.CreatedAt,
+                UpdatedAt = record.UpdatedAt
+            };
+
+            return entity;
         }
 
-        public Task<BookingTable> UpdateAsync(BookingTable bookingsTable)
+        public async Task<BookingEntity> UpdateAsync(BookingTable table)
         {
-            throw new NotImplementedException();
+            table.UpdatedAt = DateTime.Now;
+
+            dataContext.Bookings.Update(table);
+            await dataContext.SaveChangesAsync();
+
+            var entity = new BookingEntity
+            {
+                Id = table.Id,
+                Name = table.Name,
+                DateFrom = table.DateFrom,
+                DateTo = table.DateTo,
+                Price = table.Price,
+                CreatedAt = table.CreatedAt,
+                UpdatedAt = table.UpdatedAt
+            };
+
+            return entity;
         }
     }
 }

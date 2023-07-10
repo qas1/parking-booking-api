@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ParkingBookingAPI.Core.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace ParkingBookingApi.Controllers.Booking.UpdateBooking
@@ -20,5 +21,16 @@ namespace ParkingBookingApi.Controllers.Booking.UpdateBooking
         [Required]
         [FromBody]
         public string Name { get; set; } = string.Empty;
+
+        public BookingEntity ToDomainEntity()
+        {
+            return new BookingEntity
+            {
+                Id = this.Id.Value,
+                DateFrom = this.DateFrom.Value,
+                DateTo = this.DateTo.Value,
+                Name = this.Name
+            };
+        }
     }
 }

@@ -13,6 +13,6 @@ namespace ParkingBookingApi.Repositories.BookingRepository
 
         Task DeleteAsync(Guid id);
 
-        Task<BookingTable> UpdateAsync(BookingTable bookingsTable);
+        Task<BookingEntity> UpdateAsync(BookingTable bookingsTable);
     }
 }

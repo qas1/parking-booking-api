@@ -19,22 +19,68 @@ namespace ParkingBookingAPI.Services.Booking
 
         public async Task<Guid> CreateBooking(BookingEntity booking)
         {
-            this.ValidateDateTimes(booking.DateFrom, booking.DateTo);
-
-            var availableSpaces = await this.GetAvailableSpaces(booking);
-            if (availableSpaces == 0)
-            {
-                throw new UnprocessableEntityException($"There are no available parking spaces between {booking.DateFrom} and {booking.DateTo}");
-            }
-
-            var table = BookingTable.FromEntity(booking);
+            await this.ValidateBooking(booking);
 
             var bookingPrice = this.CalculatePrice(booking);
+
+            var table = BookingTable.FromEntity(booking);
             table.Price = bookingPrice;
 
             var id = await this.bookingRepository.CreateAsync(table);
 
             return id;
+        }
+
+        public async Task<AvailabilityEntity> GetBookingAvailability(BookingEntity booking)
+        {
+            this.ValidateDateTimes(booking.DateFrom, booking.DateTo);
+            int availableSpaces = await this.GetAvailableSpaces(booking);
+            int totalPrice = CalculatePrice(booking);
+
+            return new AvailabilityEntity
+            {
+                SpacesAvailable = availableSpaces,
+                Price = totalPrice
+            };
+        }
+
+        public async Task<BookingEntity> UpdateBooking(BookingEntity booking)
+        {
+            var existingRecord = await this.bookingRepository.GetByIdAsync(booking.Id);
+
+            if (existingRecord == null)
+            {
+                throw new NotFoundException("Booking record could not be found");
+            }
+
+            if (existingRecord.DateFrom != booking.DateFrom || existingRecord.DateTo != booking.DateTo)
+            {
+                await this.ValidateBooking(existingRecord);
+                var price = this.CalculatePrice(booking);
+
+                existingRecord.DateFrom = booking.DateFrom;
+                existingRecord.DateTo = booking.DateTo;
+                existingRecord.Price = price;
+            }
+
+            existingRecord.Name = booking.Name;
+            var table = BookingTable.FromEntity(existingRecord);
+
+            var entity = await this.bookingRepository.UpdateAsync(table);
+
+            return entity;
+        }
+
+        public async Task DeleteBooking(Guid bookingId)
+        {
+            var existingRecord = await this.bookingRepository.GetByIdAsync(bookingId);
+
+            if (existingRecord == null)
+            {
+                throw new NotFoundException("Booking record could not be found");
+            }
+
+            await this.bookingRepository.DeleteAsync(bookingId);
         }
 
         private async Task<int> GetAvailableSpaces(BookingEntity booking)
@@ -79,7 +125,9 @@ namespace ParkingBookingAPI.Services.Booking
             var totalPrice = (Constants.WeekendPricing * weekendDateCount) + (Constants.WeekdayPricing * weekdayDateCount);
 
             // Add multiplier for seasons based on the booking start date
-            if (Enumerable.Range(6, 8).Contains(booking.DateFrom.Month))
+            if (booking.DateFrom.Month == 6 ||
+                booking.DateFrom.Month == 7 ||
+                booking.DateFrom.Month == 8)
             {
                 var priceWithMultiplier = totalPrice * Constants.SummerMultiplier;
                 totalPrice = (int)Math.Round(priceWithMultiplier, 0, MidpointRounding.AwayFromZero);
@@ -96,19 +144,15 @@ namespace ParkingBookingAPI.Services.Booking
             return totalPrice;
         }
 
-        public Task DeleteBooking(Guid bookingId)
+        private async Task ValidateBooking(BookingEntity booking)
         {
-            throw new NotImplementedException();
-        }
+            this.ValidateDateTimes(booking.DateFrom, booking.DateTo);
 
-        public Task<AvailabilityEntity> GetBookingAvailability(BookingEntity booking)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<BookingEntity> UpdateBooking(BookingEntity booking)
-        {
-            throw new NotImplementedException();
+            var availableSpaces = await this.GetAvailableSpaces(booking);
+            if (availableSpaces == 0)
+            {
+                throw new UnprocessableEntityException($"There are no available parking spaces between {booking.DateFrom} and {booking.DateTo}");
+            }
         }
     }
 }
