@@ -11,5 +11,26 @@
         public string Name { get; set; } = string.Empty;
 
         public int Price { get; set; }
+
+        public static BookingEntity CreateBookingEntity(
+            Guid id,
+            DateTime dateFrom,
+            DateTime dateTo,
+            string name,
+            int price,
+            DateTime createdAt,
+            DateTime? updatedAt)
+        {
+            return new BookingEntity()
+            {
+                Id = id,
+                DateFrom = dateFrom,
+                DateTo = dateTo,
+                Name = name,
+                Price = price,
+                CreatedAt = createdAt,
+                UpdatedAt = updatedAt
+            };
+        }
     }
 }

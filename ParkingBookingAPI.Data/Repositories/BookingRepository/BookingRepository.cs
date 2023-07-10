@@ -37,10 +37,9 @@ namespace ParkingBookingApi.Repositories.BookingRepository
         {
             var data = await dataContext.Bookings
                 .Where(x => x.DateFrom >= dateFrom && x.DateFrom < dateTo ||
-                            x.DateFrom <= dateFrom && x.DateTo < dateTo ||
                             x.DateFrom <= dateFrom && x.DateTo > dateTo ||
-                            x.DateFrom >= dateFrom && x.DateTo > dateTo ||
-                            x.DateFrom >= dateFrom && x.DateTo == dateTo)
+                            x.DateFrom >= dateFrom && x.DateTo == dateTo ||
+                            (dateFrom >= x.DateFrom && dateTo <= x.DateTo))                            
                 .ToListAsync();
 
             var entities = data.Select(x => new BookingEntity()
@@ -84,21 +83,24 @@ namespace ParkingBookingApi.Repositories.BookingRepository
 
         public async Task<BookingEntity> UpdateAsync(BookingTable table)
         {
-            table.UpdatedAt = DateTime.Now;
+            var booking = dataContext.Bookings.Single(b => b.Id == table.Id);
 
-            dataContext.Bookings.Update(table);
+            booking.Name = table.Name;
+            booking.DateFrom = table.DateFrom;
+            booking.DateTo = table.DateTo;
+            booking.Price = table.Price;
+            booking.UpdatedAt = DateTime.Now;
+
             await dataContext.SaveChangesAsync();
 
-            var entity = new BookingEntity
-            {
-                Id = table.Id,
-                Name = table.Name,
-                DateFrom = table.DateFrom,
-                DateTo = table.DateTo,
-                Price = table.Price,
-                CreatedAt = table.CreatedAt,
-                UpdatedAt = table.UpdatedAt
-            };
+            var entity = BookingEntity.CreateBookingEntity(
+                booking.Id,
+                booking.DateFrom,
+                booking.DateTo,
+                booking.Name,
+                booking.Price,
+                booking.CreatedAt,
+                booking.UpdatedAt);
 
             return entity;
         }

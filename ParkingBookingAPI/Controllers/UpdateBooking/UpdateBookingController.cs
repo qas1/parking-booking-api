@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ParkingBookingApi.Services.Booking;
 using ParkingBookingAPI.Data.Tables;
+using System.ComponentModel.DataAnnotations;
 
 namespace ParkingBookingApi.Controllers.Booking.UpdateBooking
 {
@@ -15,9 +16,9 @@ namespace ParkingBookingApi.Controllers.Booking.UpdateBooking
         }
 
         [HttpPut("api/bookings/{id}")]
-        public async Task<ActionResult<BookingTable>> Put(UpdateBookingRequestModel request)
+        public async Task<ActionResult<BookingTable>> Put(UpdateBookingRequestModel request, [FromRoute] [Required] Guid id)
         {
-            var entity = await this.bookingService.UpdateBooking(request.ToDomainEntity());
+            var entity = await this.bookingService.UpdateBooking(request.ToDomainEntity(id));
 
             return Ok(entity);
         }

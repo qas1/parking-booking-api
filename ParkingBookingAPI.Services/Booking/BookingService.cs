@@ -55,7 +55,7 @@ namespace ParkingBookingAPI.Services.Booking
 
             if (existingRecord.DateFrom != booking.DateFrom || existingRecord.DateTo != booking.DateTo)
             {
-                await this.ValidateBooking(existingRecord);
+                await this.ValidateBooking(booking);
                 var price = this.CalculatePrice(booking);
 
                 existingRecord.DateFrom = booking.DateFrom;

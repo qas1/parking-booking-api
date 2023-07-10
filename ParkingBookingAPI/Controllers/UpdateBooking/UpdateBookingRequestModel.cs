@@ -7,10 +7,6 @@ namespace ParkingBookingApi.Controllers.Booking.UpdateBooking
     public class UpdateBookingRequestModel
     {
         [Required]
-        [FromRoute]
-        public Guid? Id { get; set; }
-
-        [Required]
         [FromBody]
         public DateTime? DateFrom { get; set; }
 
@@ -22,11 +18,11 @@ namespace ParkingBookingApi.Controllers.Booking.UpdateBooking
         [FromBody]
         public string Name { get; set; } = string.Empty;
 
-        public BookingEntity ToDomainEntity()
+        public BookingEntity ToDomainEntity(Guid id)
         {
             return new BookingEntity
             {
-                Id = this.Id.Value,
+                Id = id,
                 DateFrom = this.DateFrom.Value,
                 DateTo = this.DateTo.Value,
                 Name = this.Name
