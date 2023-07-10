@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ParkingBookingApi.Services.Booking;
 using ParkingBookingAPI.Controllers.CreateBooking;
 
@@ -14,6 +15,7 @@ namespace ParkingBookingApi.Controllers.Booking.CreateBooking
             this.bookingService = bookingService;
         }
 
+        [Authorize]
         [HttpPost("api/bookings")]
         public async Task<ActionResult<CreateBookingResponseModel>> Post(CreateBookingRequestModel request)
         {

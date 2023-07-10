@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ParkingBookingApi.Services.Booking;
 
 namespace ParkingBookingApi.Controllers.Booking.DeleteBooking
@@ -13,6 +14,7 @@ namespace ParkingBookingApi.Controllers.Booking.DeleteBooking
             this.bookingService = bookingService;
         }
 
+        [Authorize]
         [HttpDelete("api/bookings/{id}")]
         public async Task<ActionResult> Delete([FromRoute] DeleteBookingRequestModel request)
         {

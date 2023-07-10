@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ParkingBookingApi.Services.Booking;
 using ParkingBookingAPI.Data.Tables;
 using System.ComponentModel.DataAnnotations;
@@ -15,6 +16,7 @@ namespace ParkingBookingApi.Controllers.Booking.UpdateBooking
             this.bookingService = bookingService;
         }
 
+        [Authorize]
         [HttpPut("api/bookings/{id}")]
         public async Task<ActionResult<BookingTable>> Put(UpdateBookingRequestModel request, [FromRoute] [Required] Guid id)
         {
