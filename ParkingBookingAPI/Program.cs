@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ParkingBookingApi.Middlewares;
 using ParkingBookingApi.Repositories.BookingRepository;
 using ParkingBookingApi.Services.Booking;
 using ParkingBookingAPI.Data;
@@ -19,6 +20,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 
+builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,6 +34,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
 
