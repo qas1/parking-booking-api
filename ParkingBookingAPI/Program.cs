@@ -1,13 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using ParkingBookingApi.Middlewares;
-using ParkingBookingApi.Repositories.BookingRepository;
-using ParkingBookingApi.Services.Booking;
 using ParkingBookingAPI.Data;
 using ParkingBookingAPI.Middlewares;
 using ParkingBookingAPI.Repositories.BookingRepository;
 using ParkingBookingAPI.Services.Booking;
+using Serilog;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,6 +47,11 @@ builder.Services.AddScoped<IBookingService, BookingService>();
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
+builder.Host.UseSerilog((context, configuration) =>
+    configuration
+        .WriteTo.Console()
+        .MinimumLevel.Information());
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -57,6 +60,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
