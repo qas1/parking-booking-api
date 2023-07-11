@@ -39,7 +39,7 @@ namespace ParkingBookingAPI.Repositories.BookingRepository
                 .Where(x => x.DateFrom >= dateFrom && x.DateTo <= dateTo ||   // look for between and matching
                             x.DateFrom <= dateFrom && x.DateTo >= dateFrom || // look for overlapping start date
                             x.DateFrom <= dateTo && x.DateTo >= dateTo)       // look for overlapping end date
-                .ToListAsync();
+                .CountAsync();
 
             return bookingsCount;
         }
