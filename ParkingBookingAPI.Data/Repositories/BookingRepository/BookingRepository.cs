@@ -33,27 +33,15 @@ namespace ParkingBookingAPI.Repositories.BookingRepository
             await dataContext.SaveChangesAsync();
         }
 
-        public async Task<List<BookingEntity>> GetAsync(DateTime dateFrom, DateTime dateTo)
+        public async Task<int> GetExistingCountAsync(DateTime dateFrom, DateTime dateTo)
         {
-            var data = await dataContext.Bookings
-                .Where(x => x.DateFrom >= dateFrom && x.DateFrom < dateTo ||
-                            x.DateFrom <= dateFrom && x.DateTo > dateTo ||
-                            x.DateFrom >= dateFrom && x.DateTo == dateTo ||
-                            (dateFrom >= x.DateFrom && dateTo <= x.DateTo))                            
+            var bookingsCount = await dataContext.Bookings
+                .Where(x => x.DateFrom >= dateFrom && x.DateTo <= dateTo ||   // look for between and matching
+                            x.DateFrom <= dateFrom && x.DateTo >= dateFrom || // look for overlapping start date
+                            x.DateFrom <= dateTo && x.DateTo >= dateTo)       // look for overlapping end date
                 .ToListAsync();
 
-            var entities = data.Select(x => new BookingEntity()
-            {
-                Id = x.Id,
-                DateFrom = x.DateFrom,
-                DateTo = x.DateTo,
-                CreatedAt = x.CreatedAt,
-                Name = x.Name,
-                Price = x.Price,
-                UpdatedAt = x.UpdatedAt
-            }).ToList();
-
-            return entities;
+            return bookingsCount;
         }
 
         public async Task<BookingEntity?> GetByIdAsync(Guid id)

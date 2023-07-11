@@ -85,9 +85,9 @@ namespace ParkingBookingAPI.Services.Booking
 
         private async Task<int> GetAvailableSpaces(BookingEntity booking)
         {
-            var existingBookings = await this.bookingRepository.GetAsync(booking.DateFrom, booking.DateTo);
+            var existingBookingsCount = await this.bookingRepository.GetExistingCountAsync(booking.DateFrom, booking.DateTo);
 
-            var availableSpaces = Constants.ParkingMaxCapacity - existingBookings.Count();
+            var availableSpaces = Constants.ParkingMaxCapacity - existingBookingsCount;
 
             return availableSpaces;
         }

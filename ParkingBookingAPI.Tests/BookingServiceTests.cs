@@ -28,9 +28,8 @@ namespace ParkingBookingAPI.Tests
                 DateTo = DateTime.Now.AddHours(2)
             };
 
-            var bookings = new List<BookingEntity>();
-            this.bookingRepositoryMock.Setup(x => x.GetAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-                                      .ReturnsAsync(bookings);
+            this.bookingRepositoryMock.Setup(x => x.GetExistingCountAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                                      .ReturnsAsync(0);
 
             var newBookingId = Guid.NewGuid();
             this.bookingRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<BookingTable>()))
@@ -93,10 +92,8 @@ namespace ParkingBookingAPI.Tests
                 DateTo = DateTime.Parse("2030-01-02 07:00")
             };
 
-            var maxBookings = new List<BookingEntity>(new BookingEntity[Constants.ParkingMaxCapacity]);
-
-            this.bookingRepositoryMock.Setup(x => x.GetAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-                                      .ReturnsAsync(maxBookings);
+            this.bookingRepositoryMock.Setup(x => x.GetExistingCountAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                                      .ReturnsAsync(Constants.ParkingMaxCapacity);
 
             // Act
             var action = async () => await this.bookingService.CreateBooking(booking);
@@ -113,9 +110,8 @@ namespace ParkingBookingAPI.Tests
         public async Task CreateBooking_WhenItsOverWeekdaysAndWeekends_CorrectPriceIsSet(string dateFrom, string dateTo, int totalPrice)
         {
             // Arrange
-            var bookings = new List<BookingEntity>();
-            this.bookingRepositoryMock.Setup(x => x.GetAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-                                      .ReturnsAsync(bookings);
+            this.bookingRepositoryMock.Setup(x => x.GetExistingCountAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                                      .ReturnsAsync(0);
 
             int calculatedPrice = 0;
             this.bookingRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<BookingTable>()))

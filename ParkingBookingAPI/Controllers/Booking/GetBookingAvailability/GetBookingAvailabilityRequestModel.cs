@@ -2,9 +2,9 @@
 using ParkingBookingAPI.Core.Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace ParkingBookingAPI.Controllers.Booking.GetAvailability
+namespace ParkingBookingAPI.Controllers.Booking.GetBookingAvailability
 {
-    public class GetAvailabilityRequestModel
+    public class GetBookingAvailabilityRequestModel
     {
         [Required]
         [FromQuery(Name = "DateFrom")]

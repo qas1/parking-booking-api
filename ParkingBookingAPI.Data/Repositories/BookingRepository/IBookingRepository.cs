@@ -5,7 +5,7 @@ namespace ParkingBookingAPI.Repositories.BookingRepository
 {
     public interface IBookingRepository
     {
-        Task<List<BookingEntity>> GetAsync(DateTime dateFrom, DateTime dateTo);
+        Task<int> GetExistingCountAsync(DateTime dateFrom, DateTime dateTo);
 
         Task<BookingEntity?> GetByIdAsync(Guid id);
 

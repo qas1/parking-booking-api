@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ParkingBookingAPI.Controllers.Booking.GetAvailability;
 using ParkingBookingAPI.Entities;
 using ParkingBookingAPI.Services.Booking;
 
-namespace ParkingBookingAPI.Controllers.Booking.DeleteBooking
+namespace ParkingBookingAPI.Controllers.Booking.GetBookingAvailability
 {
     [ApiController]
     public class GetBookingAvailabilityController : ControllerBase
@@ -18,7 +17,7 @@ namespace ParkingBookingAPI.Controllers.Booking.DeleteBooking
 
         [AllowAnonymous]
         [HttpGet("api/bookings/check-availability")]
-        public async Task<ActionResult<AvailabilityEntity>> Get([FromQuery] GetAvailabilityRequestModel request)
+        public async Task<ActionResult<AvailabilityEntity>> Get([FromQuery] GetBookingAvailabilityRequestModel request)
         {
             var availabilityEntity = await this.bookingService.GetBookingAvailability(request.ToDomainEntity());
 
