@@ -1,4 +1,4 @@
-﻿namespace ParkingBookingAPI.Controllers.CreateBooking
+﻿namespace ParkingBookingAPI.Controllers.Booking.CreateBooking
 {
     public class CreateBookingResponseModel
     {

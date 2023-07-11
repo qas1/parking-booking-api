@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ParkingBookingApi.Services.Booking;
+using ParkingBookingAPI.Services.Booking;
 using ParkingBookingAPI.Data.Tables;
 using System.ComponentModel.DataAnnotations;
 
-namespace ParkingBookingApi.Controllers.Booking.UpdateBooking
+namespace ParkingBookingAPI.Controllers.Booking.UpdateBooking
 {
     [ApiController]
     public class UpdateBookingController : ControllerBase

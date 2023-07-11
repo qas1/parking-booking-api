@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ParkingBookingApi.Services.Booking;
-using ParkingBookingAPI.Controllers.CreateBooking;
+using ParkingBookingAPI.Services.Booking;
 
-namespace ParkingBookingApi.Controllers.Booking.CreateBooking
+namespace ParkingBookingAPI.Controllers.Booking.CreateBooking
 {
     [ApiController]
     public class CreateBookingController : ControllerBase

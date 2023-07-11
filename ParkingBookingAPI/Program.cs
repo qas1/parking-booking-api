@@ -5,6 +5,8 @@ using ParkingBookingApi.Middlewares;
 using ParkingBookingApi.Repositories.BookingRepository;
 using ParkingBookingApi.Services.Booking;
 using ParkingBookingAPI.Data;
+using ParkingBookingAPI.Middlewares;
+using ParkingBookingAPI.Repositories.BookingRepository;
 using ParkingBookingAPI.Services.Booking;
 using System.Text;
 

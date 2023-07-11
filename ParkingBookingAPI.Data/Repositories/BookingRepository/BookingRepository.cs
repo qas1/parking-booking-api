@@ -3,7 +3,7 @@ using ParkingBookingAPI.Core.Entities;
 using ParkingBookingAPI.Data;
 using ParkingBookingAPI.Data.Tables;
 
-namespace ParkingBookingApi.Repositories.BookingRepository
+namespace ParkingBookingAPI.Repositories.BookingRepository
 {
     public class BookingRepository : IBookingRepository
     {

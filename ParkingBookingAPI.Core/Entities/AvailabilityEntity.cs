@@ -1,4 +1,4 @@
-﻿namespace ParkingBookingApi.Entities
+﻿namespace ParkingBookingAPI.Entities
 {
     public class AvailabilityEntity
     {

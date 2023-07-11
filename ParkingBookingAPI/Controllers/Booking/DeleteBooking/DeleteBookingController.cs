@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ParkingBookingApi.Services.Booking;
+using ParkingBookingAPI.Services.Booking;
 
-namespace ParkingBookingApi.Controllers.Booking.DeleteBooking
+namespace ParkingBookingAPI.Controllers.Booking.DeleteBooking
 {
     [ApiController]
     public class DeleteBookingController : ControllerBase

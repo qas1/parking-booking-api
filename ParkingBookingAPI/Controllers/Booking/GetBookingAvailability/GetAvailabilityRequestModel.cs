@@ -2,7 +2,7 @@
 using ParkingBookingAPI.Core.Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace ParkingBookingApi.Controllers.Booking.GetAvailability
+namespace ParkingBookingAPI.Controllers.Booking.GetAvailability
 {
     public class GetAvailabilityRequestModel
     {

@@ -1,7 +1,7 @@
-﻿using ParkingBookingApi.Entities;
+﻿using ParkingBookingAPI.Entities;
 using ParkingBookingAPI.Core.Entities;
 
-namespace ParkingBookingApi.Services.Booking
+namespace ParkingBookingAPI.Services.Booking
 {
     public interface IBookingService
     {

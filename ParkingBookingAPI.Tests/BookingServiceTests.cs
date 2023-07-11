@@ -1,5 +1,5 @@
 using Moq;
-using ParkingBookingApi.Repositories.BookingRepository;
+using ParkingBookingAPI.Repositories.BookingRepository;
 using ParkingBookingAPI.Core.Entities;
 using ParkingBookingAPI.Core.Exceptions;
 using ParkingBookingAPI.Data;

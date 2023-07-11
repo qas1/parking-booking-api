@@ -1,6 +1,6 @@
-﻿using ParkingBookingApi.Entities;
-using ParkingBookingApi.Repositories.BookingRepository;
-using ParkingBookingApi.Services.Booking;
+﻿using ParkingBookingAPI.Entities;
+using ParkingBookingAPI.Repositories.BookingRepository;
+using ParkingBookingAPI.Services.Booking;
 using ParkingBookingAPI.Core.Entities;
 using ParkingBookingAPI.Core.Exceptions;
 using ParkingBookingAPI.Data.Tables;

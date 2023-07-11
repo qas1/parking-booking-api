@@ -2,7 +2,7 @@
 using ParkingBookingAPI.Core.Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace ParkingBookingApi.Controllers.Booking.UpdateBooking
+namespace ParkingBookingAPI.Controllers.Booking.UpdateBooking
 {
     public class UpdateBookingRequestModel
     {

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ParkingBookingApi.Controllers.Booking.GetAvailability;
-using ParkingBookingApi.Entities;
-using ParkingBookingApi.Services.Booking;
+using ParkingBookingAPI.Controllers.Booking.GetAvailability;
+using ParkingBookingAPI.Entities;
+using ParkingBookingAPI.Services.Booking;
 
-namespace ParkingBookingApi.Controllers.Booking.DeleteBooking
+namespace ParkingBookingAPI.Controllers.Booking.DeleteBooking
 {
     [ApiController]
     public class GetBookingAvailabilityController : ControllerBase

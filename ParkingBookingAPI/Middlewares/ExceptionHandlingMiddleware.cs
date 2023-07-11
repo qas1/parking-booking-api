@@ -3,7 +3,7 @@ using ParkingBookingAPI.Core.Exceptions;
 using System.Net;
 using System.Text.Json;
 
-namespace ParkingBookingApi.Middlewares
+namespace ParkingBookingAPI.Middlewares
 {
     public class ExceptionHandlingMiddleware : IMiddleware
     {
