@@ -2,7 +2,7 @@
 
 ## Endpoints
 
-##### [POST] /api/bookings - Create Booking
+#### [POST] /api/bookings - Create Booking
 
 Request body:
 - DateFrom
@@ -10,16 +10,16 @@ Request body:
 - Name
 
 
-##### [PATCH] /api/bookings/{id} - Update Booking
+#### [PATCH] /api/bookings/{id} - Update Booking
 
 Request body:
 - DateFrom
 - DateTo
 - Name
 
-##### [DELETE] /api/bookings/{id} - Delete Booking
+#### [DELETE] /api/bookings/{id} - Delete Booking
 
-##### [GET] /api/bookings/check-availability - Check Booking Availability
+#### [GET] /api/bookings/check-availability - Check Booking Availability
 
 Returns the number of available spaces and the price for the provided dates.
 
