@@ -10,14 +10,14 @@ Request body:
 - [string] Name
 
 
-#### [PATCH] /api/bookings/{id} - Update Booking
+#### [PUT] /api/bookings/{id} - Update Booking
 
 Request body:
 - [DateTime] DateFrom 
 - [DateTime] DateTo
 - [string] Name
 
-#### [DELETE] /api/bookings/{id} - Delete Booking
+#### [DELETE] /api/bookings/{id} - Cancel Booking
 
 #### [GET] /api/bookings/check-availability - Check Booking Availability
 
